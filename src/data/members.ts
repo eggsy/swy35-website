@@ -50,7 +50,7 @@ export const members = [
     },
   },
   {
-    name: "Ferdi Dumanoğlu",
+    name: "Ferdi Dumandağ",
     image: "/ferdi.jpeg",
     social: {
       instagram: "dumandag_ferdi",
