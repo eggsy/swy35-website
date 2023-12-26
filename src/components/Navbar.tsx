@@ -51,7 +51,7 @@ export const Navbar = () => {
       <ul className="flex items-center justify-center w-full md:w-max gap-8">
         {pages.map((page) => (
           <li key={page.path}>
-            <a
+            <Link
               className={`${
                 router.pathname === page.path
                   ? "text-brand"
@@ -60,7 +60,7 @@ export const Navbar = () => {
               href={page.path}
             >
               {page.title}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
