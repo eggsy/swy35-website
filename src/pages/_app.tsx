@@ -23,6 +23,9 @@ export default function App({ Component, pageProps }: AppProps) {
             "Explore SWY35 Türkiye's journey in the Ship for World Youth program. Immerse yourself in Turkish culture, foster global connections, and join us in shaping a brighter future together.",
           images: [{ url: "/og-image.png" }],
         }}
+        twitter={{
+          cardType: "summary_large_image",
+        }}
       />
 
       <div>
