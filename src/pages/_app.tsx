@@ -1,6 +1,7 @@
 import type { AppProps } from "next/app";
 import { NextSeo } from "next-seo";
 import { Inter } from "next/font/google";
+import { useRouter } from "next/router";
 
 // CSS
 import "@/styles/tailwind.css";
@@ -12,6 +13,10 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
+  if (router.pathname.includes("/studio")) return <Component {...pageProps} />;
+
   return (
     <div className={inter.className}>
       <NextSeo

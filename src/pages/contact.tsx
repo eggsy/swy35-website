@@ -1,7 +1,7 @@
 export default function Contact() {
   return (
     <main className="container-app">
-      <h1 className="text-3xl font-bold mb-8">Contact</h1>
+      <h1 className="text-4xl font-bold mb-8">Contact</h1>
 
       <div className="flex gap-4">
         <div className="flex flex-col gap-2 ">

@@ -2,33 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  @variants responsive {
-    .masonry {
-      column-gap: 0.5em;
-      column-count: 1;
-    }
-    .masonry-sm {
-      column-gap: 0.5em;
-      column-count: 2;
-    }
-    .masonry-md {
-      column-gap: 0.5em;
-      column-count: 3;
-    }
-    .masonry-lg {
-      column-gap: 0.5em;
-      row-gap: 0.5em;
-      column-count: 4;
-    }
-    .masonry-xl {
-      column-gap: 0.5em;
-      row-gap: 0.5em;
-      column-count: 5;
-    }
-    .break-inside {
-      break-inside: avoid;
-    }
+@layer components {
+  .masonry {
+    column-gap: 0.5em;
+    column-count: 1;
+  }
+  .masonry-sm {
+    column-gap: 0.5em;
+    column-count: 2;
+  }
+  .masonry-md {
+    column-gap: 0.5em;
+    column-count: 3;
+  }
+  .masonry-lg {
+    column-gap: 0.5em;
+    row-gap: 0.5em;
+    column-count: 4;
+  }
+  .masonry-xl {
+    column-gap: 0.5em;
+    row-gap: 0.5em;
+    column-count: 5;
+  }
+  .break-inside {
+    break-inside: avoid;
   }
 }
 

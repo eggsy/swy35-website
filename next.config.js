@@ -11,6 +11,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "em-content.zobj.net",
       },
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+      },
     ],
   },
 };

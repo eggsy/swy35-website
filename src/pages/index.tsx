@@ -1,4 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
+import { GetStaticPropsContext } from "next";
+import { client } from "../../sanity/lib/client";
 import Image from "next/image";
 import { A11y, Navigation, Pagination, Parallax } from "swiper/modules";
 import {
@@ -11,6 +13,7 @@ import {
   TbBrandInstagram,
   TbBrandX,
 } from "react-icons/tb";
+import type { Post } from "@/pages/[slug]";
 
 // Data
 import { swiper } from "@/data/swiper";
@@ -23,6 +26,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/parallax";
 import Link from "next/link";
+import { urlForImage } from "../../sanity/lib/image";
+import { CardBlog } from "../components/CardBlog";
 
 const purpose = [
   {
@@ -55,7 +60,14 @@ const purpose = [
   },
 ];
 
-export default function Home() {
+export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
+  const query = '*[_type == "post"]{title, mainImage, slug, publishedAt}';
+  const posts = await client.fetch(query);
+
+  return { props: { posts } };
+};
+
+export default function Home({ posts }: { posts: Post[] }) {
   return (
     <main>
       <Swiper
@@ -151,6 +163,26 @@ export default function Home() {
           ))}
         </div>
       </Section>
+
+      {posts.length > 0 && (
+        <Section title="Read our blog">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8">
+            {posts.map((post) => (
+              <CardBlog
+                key={post._id}
+                title={post.title}
+                href={`/${post.slug.current}`}
+                date={new Date(post.publishedAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+                image={urlForImage(post.mainImage!) ?? ""}
+              />
+            ))}
+          </div>
+        </Section>
+      )}
     </main>
   );
 }
@@ -203,7 +235,7 @@ const CardPeople = ({
   };
 }) => (
   <div className="flex flex-col">
-    <div className="bg-gray-100/30 mb-4 h-[150px] w-[150px] overflow-hidden">
+    <div className="bg-gray-100/30 mb-4 rounded-lg h-[150px] w-[150px] overflow-hidden">
       <Image
         src={`/people${image}`}
         alt={`Picture of ${name}`}

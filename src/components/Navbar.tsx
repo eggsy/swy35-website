@@ -19,6 +19,10 @@ const pages = [
     title: "Contact",
     path: "/contact",
   },
+  {
+    title: "Blog",
+    path: "/blog",
+  },
 ];
 
 export const Navbar = () => {
@@ -48,11 +52,13 @@ export const Navbar = () => {
         </div>
       </Link>
 
-      <ul className="flex items-center justify-center w-full md:w-max gap-8">
+      <ul className="flex items-center justify-center rounded-lg overflow-auto pl-14 md:pl-0 w-full md:w-max">
         {pages.map((page) => (
           <li key={page.path}>
             <Link
-              className={`${
+              className={`
+              bg-black/5 block hover:bg-black/10 md:hover:bg-transparent md:bg-transparent p-4
+              ${
                 router.pathname === page.path
                   ? "text-brand"
                   : "text-gray-500 hover:text-brand"
