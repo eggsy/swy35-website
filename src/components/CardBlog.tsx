@@ -17,7 +17,7 @@ export const CardBlog = ({
       <Image
         src={image}
         alt={`Picture of ${title}`}
-        height={500}
+        height={280}
         width={500}
         className="rounded-lg"
         style={{
