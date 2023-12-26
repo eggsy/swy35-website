@@ -1,118 +1,267 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import { Swiper, SwiperSlide } from "swiper/react";
+import Image from "next/image";
+import { A11y, Navigation, Pagination, Parallax } from "swiper/modules";
+import {
+  TbFriends,
+  TbBrain,
+  TbHeartHandshake,
+  TbWorld,
+  TbWorldCheck,
+  TbDots,
+  TbBrandInstagram,
+  TbBrandX,
+} from "react-icons/tb";
 
-const inter = Inter({ subsets: ['latin'] })
+// Data
+import { swiper } from "@/data/swiper";
+import { participants } from "@/data/participants";
+import { members } from "@/data/members";
+import { sponsors } from "@/data/sponsors";
+
+// CSS
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/parallax";
+import Link from "next/link";
+
+const purpose = [
+  {
+    icon: <TbBrain />,
+    title:
+      "To promote mutual understanding and friendship between Japanese and foreign youths",
+  },
+  {
+    icon: <TbHeartHandshake />,
+    title:
+      "To cultivate the spirit of international cooperation and the competence to practice it",
+  },
+  {
+    icon: <TbWorld />,
+    title:
+      "To foster the youths with capability of showing leadership in various areas of global society",
+  },
+  {
+    icon: <TbFriends />,
+    title: "To broaden the global view of the Japanese youth",
+  },
+  {
+    icon: <TbWorldCheck />,
+    title:
+      "Build an international network of young leaders from all over the world",
+  },
+  {
+    icon: <TbDots />,
+    title: "And so much more; the possibilities are endless!",
+  },
+];
 
 export default function Home() {
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/pages/index.tsx</code>
+    <main>
+      <Swiper
+        modules={[Navigation, Pagination, A11y, Parallax]}
+        slidesPerView={1}
+        navigation
+        pagination={{ enabled: true, clickable: true, type: "progressbar" }}
+        a11y={{ enabled: true }}
+        parallax={{ enabled: true }}
+      >
+        {swiper.map((image) => (
+          <SwiperSlide
+            key={image}
+            style={{
+              height: "70svh",
+            }}
+          >
+            <Image
+              src={image}
+              priority
+              alt="Swiper Image"
+              fill
+              style={{
+                objectFit: "cover",
+              }}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      <Section id="about" title="What is SWY?">
+        <p>
+          The Ship for World Youth Leaders (SWY) program, operated by Cabinet
+          Office, Government of Japan, is a program that involves youths from
+          Japan and countries around the world. The participants study and
+          discuss common issues from a global perspective and participate in
+          various activities that involve multi-cultural and multi-national
+          exchange opportunities to cultive international awareness and
+          leadership. The program runs for over one month onshore and onboard
+          the ship.
         </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
+      </Section>
+
+      <Section title="Aims of the SWY program">
+        <div className="grid lg:grid-cols-3 gap-8">
+          {purpose.map((item) => (
+            <Card key={item.title} icon={item.icon}>
+              {item.title}
+            </Card>
+          ))}
+        </div>
+      </Section>
+
+      <Section title="Who is attending the SWY35 program?">
+        <div className="grid grid-cols-2 md:flex items-center gap-x-4 gap-y-2 flex-wrap">
+          {participants.map((country) => (
+            <div
+              key={country.country}
+              className="bg-gray-100 flex hover:bg-gray-200 select-none items-center gap-2 pl-3 pr-4 rounded-lg"
+            >
+              <Image
+                src={country.flag}
+                alt={`Flag of ${country.country}`}
+                width={40}
+                height={40}
+              />
+
+              <span className="text-sm">{country.country}</span>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section title="Members of our delegation">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-x-4 gap-y-8">
+          {members.map((member) => (
+            <CardPeople key={member.name} {...member} />
+          ))}
+        </div>
+      </Section>
+
+      <Section
+        title="Our sponsors"
+        subtitleElement={
+          <Link href="/contact" className="text-blue-600">
+            👉 Become a sponsor
+          </Link>
+        }
+      >
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-x-4 gap-y-8">
+          {sponsors.map((sponsor) => (
+            <CardSponsor key={sponsor.name} {...sponsor} />
+          ))}
+        </div>
+      </Section>
+    </main>
+  );
+}
+
+const Section = ({
+  title,
+  children,
+  subtitleElement,
+  ...rest
+}: React.PropsWithChildren<{
+  title: string;
+  subtitleElement?: React.ReactNode;
+}> &
+  React.HTMLAttributes<HTMLDivElement>) => (
+  <section className="container-app my-24" {...rest}>
+    <div className="flex flex-col gap-2 mb-8">
+      <h2 className="text-3xl font-bold">{title}</h2>
+      {subtitleElement}
+    </div>
+
+    {children}
+  </section>
+);
+
+const Card = ({
+  icon,
+  children,
+}: React.PropsWithChildren<{ icon: React.ReactNode }>) => (
+  <div className="bg-gray-100/60 rounded-lg p-8">
+    <div className="flex text-3xl text-green-600 items-center justify-center w-16 h-16 bg-green-600/10 rounded-full mb-8">
+      {icon}
+    </div>
+
+    {children}
+  </div>
+);
+
+const CardPeople = ({
+  image,
+  name,
+  role,
+  social,
+}: {
+  image: string;
+  name: string;
+  role?: string;
+  social?: {
+    instagram?: string;
+    twitter?: string;
+  };
+}) => (
+  <div className="flex flex-col">
+    <div className="bg-gray-100/30 mb-4 h-[150px] w-[150px] overflow-hidden">
+      <Image
+        src={`/people${image}`}
+        alt={`Picture of ${name}`}
+        style={{
+          objectFit: "cover",
+        }}
+        height={150}
+        width={150}
+      />
+    </div>
+
+    <div>
+      <h3 className="font-medium">{name}</h3>
+      {role && <span className="text-sm text-gray-500">{role}</span>}
+    </div>
+
+    {social && (
+      <div className="flex gap-2 mt-1">
+        {social.instagram && (
           <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
+            href={`https://instagram.com/${social.instagram}`}
             target="_blank"
             rel="noopener noreferrer"
           >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
+            <TbBrandInstagram size={18} />
           </a>
-        </div>
+        )}
+
+        {social.twitter && (
+          <a
+            href={`https://twitter.com/${social.twitter}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <TbBrandX size={18} />
+          </a>
+        )}
       </div>
+    )}
+  </div>
+);
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+const CardSponsor = ({ name, logo }: { name: string; logo: string }) => (
+  <div className="flex items-center flex-col">
+    <div className="bg-gray-100/30 mb-4 h-[150px] w-[150px] overflow-hidden">
+      <Image
+        src={logo}
+        alt={`Picture of ${name}`}
+        style={{
+          objectFit: "cover",
+        }}
+        height={150}
+        width={150}
+      />
+    </div>
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
-}
+    <div>
+      <h3 className="font-medium text-center">{name}</h3>
+    </div>
+  </div>
+);
