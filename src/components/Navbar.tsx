@@ -39,14 +39,16 @@ export const Navbar = () => {
         />
 
         <div className="flex flex-col items-center gap-1 md:items-start text-center">
-          <span className="md:text-lg text-xl font-bold text-brand">SWY35 Türkiye</span>
+          <span className="md:text-lg text-xl font-bold text-brand">
+            SWY35 Türkiye
+          </span>
           <span className="text-black/50 text-xs md:text-sm w-3/4 md:w-full">
             One ship, many journeys, endless connections!
           </span>
         </div>
       </Link>
 
-      <ul className="grid grid-cols-4 md:flex items-center w-full md:w-max overflow-auto gap-4 md:gap-8">
+      <ul className="flex items-center justify-center w-full md:w-max gap-8">
         {pages.map((page) => (
           <li key={page.path}>
             <a
