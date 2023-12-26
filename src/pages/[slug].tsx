@@ -1,4 +1,4 @@
-import { GetStaticPaths, GetStaticPropsContext } from "next";
+import { GetServerSidePropsContext } from "next";
 import { type SanityDocument } from "next-sanity";
 import { client } from "../../sanity/lib/client";
 import { PortableText } from "@portabletext/react";
@@ -13,21 +13,9 @@ export interface Post extends SanityDocument {
   mainImage?: SanityImage;
 }
 
-export const getStaticPaths = (async () => {
-  const query = '*[_type == "post"]';
-  const posts = await client.fetch<Post[]>(query);
-
-  return {
-    paths: posts.map((post) => ({
-      params: {
-        slug: post.slug.current,
-      },
-    })),
-    fallback: false,
-  };
-}) satisfies GetStaticPaths;
-
-export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
+export const getServerSideProps = async ({
+  params,
+}: GetServerSidePropsContext) => {
   const query =
     '*[_type == "post" && slug.current == $slug][0]{title, body, mainImage, publishedAt}';
   const post = await client.fetch(query, { slug: params?.slug });

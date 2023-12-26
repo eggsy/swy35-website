@@ -1,5 +1,4 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { GetStaticPropsContext } from "next";
 import { client } from "../../sanity/lib/client";
 import Image from "next/image";
 import { A11y, Navigation, Pagination, Parallax } from "swiper/modules";
@@ -60,7 +59,7 @@ const purpose = [
   },
 ];
 
-export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
+export const getServerSideProps = async () => {
   const query = '*[_type == "post"]{title, mainImage, slug, publishedAt}';
   const posts = await client.fetch(query);
 

@@ -1,10 +1,9 @@
-import { GetStaticPropsContext } from "next";
 import { client } from "../../sanity/lib/client";
 import { urlForImage } from "../../sanity/lib/image";
 import type { Post } from "@/pages/[slug]";
 import { CardBlog } from "@/components/CardBlog";
 
-export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
+export const getServerSideProps = async () => {
   const query = '*[_type == "post"]{title, mainImage, slug, publishedAt}';
   const posts = await client.fetch(query);
 
