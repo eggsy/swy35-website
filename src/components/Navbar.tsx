@@ -52,12 +52,12 @@ export const Navbar = () => {
         </div>
       </Link>
 
-      <ul className="flex items-center justify-center rounded-lg overflow-auto pl-14 md:pl-0 w-full md:w-max">
+      <ul className="flex justify-evenly items-center gap-4 md:gap-8 bg-black/5 md:bg-transparent rounded-lg overflow-auto w-full md:w-max">
         {pages.map((page) => (
           <li key={page.path}>
             <Link
               className={`
-              bg-black/5 block hover:bg-black/10 md:hover:bg-transparent md:bg-transparent p-4
+              block flex-shrink-0 py-4
               ${
                 router.pathname === page.path
                   ? "text-brand"
