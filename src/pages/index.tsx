@@ -11,10 +11,12 @@ import {
   TbDots,
   TbBrandInstagram,
   TbBrandX,
+  TbLink,
 } from "react-icons/tb";
 import type { Post } from "@/pages/[slug]";
 import { urlForImage } from "../../sanity/lib/image";
-import { CardBlog } from "../components/CardBlog";
+import { CardBlog } from "@/components/CardBlog";
+import Link from "next/link";
 
 // Data
 import { swiper } from "@/data/swiper";
@@ -121,21 +123,47 @@ export default function Home({ posts }: { posts: Post[] }) {
 
       <Section title="Who is attending the SWY35 program?">
         <div className="grid grid-cols-2 md:flex items-center gap-x-4 gap-y-2 flex-wrap">
-          {participants.map((country) => (
-            <div
-              key={country.country}
-              className="bg-gray-100 flex hover:bg-gray-200 select-none items-center gap-2 pl-3 pr-4 rounded-lg"
-            >
-              <Image
-                src={country.flag}
-                alt={`Flag of ${country.country}`}
-                width={40}
-                height={40}
-              />
+          {participants.map((country) => {
+            return (
+              <div
+                key={country.country}
+                className="flex border border-gray-200 hover:border-gray-300 transition-colors select-none items-center gap-2 pl-3 pr-4 rounded-lg"
+              >
+                <Image
+                  src={country.flag}
+                  alt={`Flag of ${country.country}`}
+                  width={40}
+                  height={40}
+                />
 
-              <span className="text-sm">{country.country}</span>
-            </div>
-          ))}
+                <span className="text-sm">{country.country}</span>
+
+                {Object.keys(country.socials ?? {}).length > 0 && (
+                  <div className="flex items-center gap-2">
+                    {country.socials?.instagram && (
+                      <a
+                        href={`https://instagram.com/${country.socials.instagram}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <TbBrandInstagram size={18} />
+                      </a>
+                    )}
+
+                    {country.socials?.website && (
+                      <a
+                        href={country.socials.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <TbLink size={18} />
+                      </a>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </Section>
 
@@ -148,7 +176,16 @@ export default function Home({ posts }: { posts: Post[] }) {
       </Section>
 
       {posts.length > 0 && (
-        <Section title="Read our blog">
+        <Section
+          title="Read our blog"
+          append={
+            posts.length === 3 && (
+              <Link href="/blog" className="text-blue-600 hover:underline">
+                See all posts
+              </Link>
+            )
+          }
+        >
           <div className="grid lg:grid-cols-3 gap-x-4 gap-y-8">
             {posts.map((post) => (
               <CardBlog
@@ -173,17 +210,17 @@ export default function Home({ posts }: { posts: Post[] }) {
 const Section = ({
   title,
   children,
-  subtitleElement,
+  append,
   ...rest
 }: React.PropsWithChildren<{
   title: string;
-  subtitleElement?: React.ReactNode;
+  append?: React.ReactNode;
 }> &
   React.HTMLAttributes<HTMLDivElement>) => (
   <section className="container-app my-24" {...rest}>
-    <div className="flex flex-col gap-2 mb-8">
+    <div className="flex justify-between items-center gap-4 mb-8">
       <h2 className="text-3xl font-bold">{title}</h2>
-      {subtitleElement}
+      {append}
     </div>
 
     {children}
@@ -194,7 +231,7 @@ const Card = ({
   icon,
   children,
 }: React.PropsWithChildren<{ icon: React.ReactNode }>) => (
-  <div className="bg-gray-100/60 rounded-lg p-8">
+  <div className="border border-gray-200 hover:border-gray-300 transition-colors rounded-xl p-8">
     <div className="flex text-3xl text-green-600 items-center justify-center w-16 h-16 bg-green-600/10 rounded-full mb-8">
       {icon}
     </div>
