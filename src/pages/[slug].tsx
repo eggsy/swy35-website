@@ -34,6 +34,7 @@ export default function BlogPost({ post }: { post: Post }) {
       <NextSeo
         title={post.title}
         titleTemplate="%s - SWY35 Türkiye Blog"
+        description={`Read more about SWY35 Türkiye's "${post.title}" blog post and get ready to find yourself in an immersive world of cultural exchange!`}
         openGraph={{
           title: post.title,
           images: [{ url: urlForImage(post.mainImage! ?? "") ?? "" }],
