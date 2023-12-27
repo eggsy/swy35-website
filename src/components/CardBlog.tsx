@@ -2,7 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const CardBlog = ({
-  title, date, image, href,
+  title,
+  date,
+  image,
+  href,
 }: {
   title: string;
   date: string;
@@ -15,14 +18,15 @@ export const CardBlog = ({
   >
     <div className="bg-gray-100/30 mb-4 overflow-hidden">
       <Image
-        src={image}
+        src={image || "/og-image.png"}
         alt={`Picture of ${title}`}
         height={280}
         width={500}
         className="rounded-lg"
         style={{
           objectFit: "cover",
-        }} />
+        }}
+      />
     </div>
 
     <div>
