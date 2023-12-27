@@ -36,7 +36,7 @@ export default function BlogPost({ post }: { post: Post }) {
         titleTemplate="%s - SWY35 Türkiye Blog"
         openGraph={{
           title: post.title,
-          images: [{ url: urlForImage(post.mainImage! ?? "") }],
+          images: [{ url: urlForImage(post.mainImage! ?? "") ?? "" }],
         }}
       />
 
@@ -44,7 +44,8 @@ export default function BlogPost({ post }: { post: Post }) {
         {post.mainImage && (
           <div className="relative w-full overflow-hidden h-[150px] md:h-[350px] rounded-lg mb-6">
             <Image
-              src={urlForImage(post.mainImage ?? "")}
+              priority
+              src={urlForImage(post.mainImage ?? "") ?? ""}
               alt={(post.mainImage.alt as string) ?? ""}
               fill
               style={{
@@ -80,7 +81,7 @@ export default function BlogPost({ post }: { post: Post }) {
                 image: ({ value }) => {
                   return (
                     <img
-                      src={urlForImage(value)}
+                      src={urlForImage(value)!}
                       alt={value.alt}
                       loading="lazy"
                     />
