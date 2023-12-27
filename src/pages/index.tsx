@@ -58,7 +58,8 @@ const purpose = [
 ];
 
 export const getServerSideProps = async () => {
-  const query = '*[_type == "post"]{title, mainImage, slug, publishedAt}';
+  const query =
+    '*[_type == "post"]{title, mainImage, slug, publishedAt}|order(publishedAt desc)[0...3]';
   const posts = await client.fetch(query);
 
   return { props: { posts } };
@@ -148,10 +149,10 @@ export default function Home({ posts }: { posts: Post[] }) {
 
       {posts.length > 0 && (
         <Section title="Read our blog">
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8">
+          <div className="grid lg:grid-cols-3 gap-x-4 gap-y-8">
             {posts.map((post) => (
               <CardBlog
-                key={post._id}
+                key={post.slug.current}
                 title={post.title}
                 href={`/${post.slug.current}`}
                 date={new Date(post.publishedAt).toLocaleDateString("en-US", {

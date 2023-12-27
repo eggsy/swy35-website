@@ -4,7 +4,8 @@ import type { Post } from "@/pages/[slug]";
 import { CardBlog } from "@/components/CardBlog";
 
 export const getServerSideProps = async () => {
-  const query = '*[_type == "post"]{title, mainImage, slug, publishedAt}';
+  const query =
+    '*[_type == "post"]{title, mainImage, slug, publishedAt}|order(publishedAt desc)';
   const posts = await client.fetch(query);
 
   return { props: { posts } };
