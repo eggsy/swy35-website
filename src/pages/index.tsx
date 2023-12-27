@@ -122,21 +122,23 @@ export default function Home({ posts }: { posts: Post[] }) {
       </Section>
 
       <Section title="Who is attending the SWY35 program?">
-        <div className="grid grid-cols-2 md:flex items-center gap-x-4 gap-y-2 flex-wrap">
+        <div className="grid md:flex items-center gap-x-4 gap-y-2 flex-wrap">
           {participants.map((country) => {
             return (
               <div
                 key={country.country}
-                className="flex border border-gray-200 hover:border-gray-300 transition-colors select-none items-center gap-2 pl-3 pr-4 rounded-lg"
+                className="flex justify-between border border-gray-200 hover:border-gray-300 transition-colors select-none items-center gap-2 pl-3 pr-4 rounded-lg"
               >
-                <Image
-                  src={country.flag}
-                  alt={`Flag of ${country.country}`}
-                  width={40}
-                  height={40}
-                />
+                <div className="flex items-center gap-2">
+                  <Image
+                    src={country.flag}
+                    alt={`Flag of ${country.country}`}
+                    width={40}
+                    height={40}
+                  />
 
-                <span className="text-sm">{country.country}</span>
+                  <span className="text-sm">{country.country}</span>
+                </div>
 
                 {Object.keys(country.socials ?? {}).length > 0 && (
                   <div className="flex items-center gap-2">
@@ -197,7 +199,7 @@ export default function Home({ posts }: { posts: Post[] }) {
                   month: "short",
                   day: "numeric",
                 })}
-                image={urlForImage(post.mainImage!) ?? ""}
+                image={urlForImage(post.mainImage) ?? ""}
               />
             ))}
           </div>
