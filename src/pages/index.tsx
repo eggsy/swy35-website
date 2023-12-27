@@ -13,20 +13,18 @@ import {
   TbBrandX,
 } from "react-icons/tb";
 import type { Post } from "@/pages/[slug]";
+import { urlForImage } from "../../sanity/lib/image";
+import { CardBlog } from "../components/CardBlog";
 
 // Data
 import { swiper } from "@/data/swiper";
 import { participants } from "@/data/participants";
 import { members } from "@/data/members";
-import { sponsors } from "@/data/sponsors";
 
 // CSS
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/parallax";
-import Link from "next/link";
-import { urlForImage } from "../../sanity/lib/image";
-import { CardBlog } from "../components/CardBlog";
 
 const purpose = [
   {
@@ -144,21 +142,6 @@ export default function Home({ posts }: { posts: Post[] }) {
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-x-4 gap-y-8">
           {members.map((member) => (
             <CardPeople key={member.name} {...member} />
-          ))}
-        </div>
-      </Section>
-
-      <Section
-        title="Our sponsors"
-        subtitleElement={
-          <Link href="/contact" className="text-blue-600">
-            👉 Become a sponsor
-          </Link>
-        }
-      >
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-x-4 gap-y-8">
-          {sponsors.map((sponsor) => (
-            <CardSponsor key={sponsor.name} {...sponsor} />
           ))}
         </div>
       </Section>
