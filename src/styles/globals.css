@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+#nprogress .bar {
+  background: #db0d17 !important;
+}
+
 @layer components {
   .masonry {
     column-gap: 0.5em;
@@ -31,7 +35,7 @@
 }
 
 .container-app {
-  @apply container mx-auto max-w-screen-lg px-6 md:px-0;
+  @apply container mx-auto max-w-screen-lg px-6 lg:px-0;
 }
 
 html {
