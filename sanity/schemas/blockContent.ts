@@ -66,6 +66,11 @@ export default defineType({
       options: { hotspot: true },
       fields: [
         {
+          name: "caption",
+          type: "string",
+          title: "Caption",
+        },
+        {
           name: "alt",
           type: "string",
           title: "Alternative Text",

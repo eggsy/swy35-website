@@ -12,6 +12,7 @@ export interface Post extends SanityDocument {
   title: string;
   publishedAt: string;
   mainImage?: SanityImage;
+  language: string;
 }
 
 export const getServerSideProps = async ({
@@ -81,11 +82,19 @@ export default function BlogPost({ post }: { post: Post }) {
               types: {
                 image: ({ value }) => {
                   return (
-                    <img
-                      src={urlForImage(value)!}
-                      alt={value.alt}
-                      loading="lazy"
-                    />
+                    <figure>
+                      <img
+                        src={urlForImage(value)!}
+                        alt={value.alt}
+                        loading="lazy"
+                      />
+
+                      {value.caption && (
+                        <figcaption className="text-center text-black/50">
+                          {value.caption}
+                        </figcaption>
+                      )}
+                    </figure>
                   );
                 },
               },
