@@ -4,7 +4,26 @@ export default defineType({
   name: "post",
   title: "Post",
   type: "document",
+  groups: [
+    {
+      title: "SEO",
+      name: "seo",
+    },
+  ],
   fields: [
+    defineField({
+      name: "language",
+      title: "Language",
+      type: "string",
+      initialValue: "gb",
+      validation: (Rule) => Rule.required(),
+      options: {
+        list: [
+          { title: "English", value: "gb" },
+          { title: "Türkçe", value: "tr" },
+        ],
+      },
+    }),
     defineField({
       name: "title",
       title: "Title",

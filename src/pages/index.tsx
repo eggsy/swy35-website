@@ -61,7 +61,7 @@ const purpose = [
 
 export const getServerSideProps = async () => {
   const query =
-    '*[_type == "post"]{title, mainImage, slug, publishedAt}|order(publishedAt desc)[0...3]';
+    '*[_type == "post"]{title, mainImage, slug, publishedAt, language}|order(publishedAt desc)[0...3]';
   const posts = await client.fetch(query);
 
   return { props: { posts } };
@@ -199,6 +199,7 @@ export default function Home({ posts }: { posts: Post[] }) {
                   month: "short",
                   day: "numeric",
                 })}
+                language={post.language}
                 image={urlForImage(post.mainImage) ?? ""}
               />
             ))}

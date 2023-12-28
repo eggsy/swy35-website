@@ -6,11 +6,13 @@ export const CardBlog = ({
   date,
   image,
   href,
+  language,
 }: {
   title: string;
   date: string;
   image: string;
   href: string;
+  language?: string;
 }) => (
   <Link
     href={href}
@@ -31,7 +33,24 @@ export const CardBlog = ({
 
     <div>
       <h3 className="text-lg font-medium">{title}</h3>
-      <span className="text-gray-500">{date}</span>
+
+      <div className="flex items-center flex-wrap gap-2">
+        {language && (
+          <Image
+            src={`https://flagicons.lipis.dev/flags/1x1/${language}.svg`}
+            alt={`Country ${language}`}
+            width={16}
+            height={16}
+            className="rounded-full h-4 w-4"
+            style={{
+              objectFit: "cover",
+            }}
+            title="The language of this post"
+          />
+        )}
+
+        <span className="text-gray-500">{date}</span>
+      </div>
     </div>
   </Link>
 );
