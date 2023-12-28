@@ -28,8 +28,8 @@ export default function Blog({ posts }: { posts: Post[] }) {
 
   return (
     <main className="container-app">
-      <div className="flex items-center flex-wrap justify-between gap-6">
-        <h1 className="text-4xl font-bold mb-8">Blog</h1>
+      <div className="flex items-center flex-wrap justify-between gap-6 mb-8">
+        <h1 className="text-4xl font-bold">Blog</h1>
 
         <div className="flex items-center flex-shrink-0 gap-2">
           <span className="text-black/50 text-sm">Languages:</span>
