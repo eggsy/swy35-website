@@ -40,6 +40,9 @@ export default function BlogPost({ post }: { post: Post }) {
           title: post.title,
           images: [{ url: urlForImage(post.mainImage! ?? "") ?? "" }],
         }}
+        twitter={{
+          cardType: "summary_large_image",
+        }}
       />
 
       <main className="container-app">
