@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://swy35.com.tr
+
+# Sitemaps
+Sitemap: https://swy35.com.tr/sitemap.xml
+Sitemap: https://swy35.com.tr/server-sitemap.xml
