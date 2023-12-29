@@ -4,7 +4,7 @@ import type { Post } from "@/pages/[slug]";
 import { CardBlog } from "@/components/CardBlog";
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import { TbCheck } from "react-icons/tb";
+import { TbCheck, TbWorld } from "react-icons/tb";
 import { useRouter } from "next/router";
 
 export const getServerSideProps = async () => {
@@ -19,7 +19,7 @@ export default function Blog({ posts }: { posts: Post[] }) {
   const router = useRouter();
 
   const [selectedLanguage, setSelectedLanguage] = useState(
-    router.query.lang ?? "gb"
+    router.query.lang ?? "all"
   );
 
   const languages = useMemo(() => {
@@ -32,17 +32,23 @@ export default function Blog({ posts }: { posts: Post[] }) {
         <h1 className="text-4xl font-bold">Blog</h1>
 
         <div className="flex items-center flex-shrink-0 gap-2">
-          <span className="text-black/50 text-sm">Languages:</span>
+          <span className="text-black/50 text-sm">Filter by language:</span>
+
           {languages.map((language) => (
             <button
               key={language}
               type="button"
               className="hover:opacity-50 flex-shrink-0 transition-opacity relative"
               onClick={() => {
-                setSelectedLanguage(language);
-                router.replace({
-                  query: { lang: language },
-                });
+                setSelectedLanguage(
+                  language === selectedLanguage ? "all" : language
+                );
+
+                if (language === selectedLanguage) router.replace("/blog");
+                else
+                  router.replace({
+                    query: { lang: language },
+                  });
               }}
             >
               {selectedLanguage === language && (
@@ -50,7 +56,6 @@ export default function Blog({ posts }: { posts: Post[] }) {
                   <TbCheck size={16} />
                 </div>
               )}
-
               <Image
                 src={`https://flagicons.lipis.dev/flags/1x1/${language}.svg`}
                 alt={`Country ${language}`}
@@ -73,7 +78,11 @@ export default function Blog({ posts }: { posts: Post[] }) {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts
-            .filter((post) => post.language === selectedLanguage)
+            .filter((post) =>
+              selectedLanguage === "all"
+                ? true
+                : post.language === selectedLanguage
+            )
             .map((post) => (
               <CardBlog
                 key={post.slug.current}
