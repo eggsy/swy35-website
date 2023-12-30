@@ -72,7 +72,7 @@ export default function BlogPost({ post }: { post: Post }) {
         <header className="flex flex-col gap-2 mb-4">
           <h1 className="text-2xl lg:text-3xl font-bold">{post.title}</h1>
 
-          <div className="flex items-center text-black/50 gap-2">
+          <div className="flex flex-wrap items-center text-black/50 gap-2">
             {post.author && (
               <div className="flex items-center gap-2">
                 <span className=" text-sm">by</span>
