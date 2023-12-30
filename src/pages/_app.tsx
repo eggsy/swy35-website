@@ -3,6 +3,7 @@ import { NextSeo } from "next-seo";
 import { Inter } from "next/font/google";
 import { Router, useRouter } from "next/router";
 import NProgress from "nprogress";
+import { Analytics } from "@vercel/analytics/react";
 
 // CSS
 import "nprogress/nprogress.css";
@@ -44,6 +45,8 @@ export default function App({ Component, pageProps }: AppProps) {
           cardType: "summary_large_image",
         }}
       />
+
+      <Analytics />
 
       <div>
         <Navbar />
