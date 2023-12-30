@@ -32,6 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <div className={inter.className}>
       <NextSeo
         title="SWY35 Türkiye"
+        titleTemplate="%s"
         description="Explore SWY35 Türkiye's journey in the Ship for World Youth program. Immerse yourself in Turkish culture, foster global connections, and join us in shaping a brighter future together."
         openGraph={{
           title: "SWY35 Türkiye",
