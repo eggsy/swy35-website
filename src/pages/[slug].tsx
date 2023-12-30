@@ -19,7 +19,8 @@ export const getServerSideProps = async ({
   params,
 }: GetServerSidePropsContext) => {
   const query =
-    '*[_type == "post" && slug.current == $slug][0]{title, body, mainImage, publishedAt}';
+    '*[_type == "post" && slug.current == $slug][0]{title, body, mainImage, publishedAt, author, editor, language}';
+
   const post = await client.fetch(query, { slug: params?.slug });
 
   if (!post) return { notFound: true };
@@ -39,6 +40,14 @@ export default function BlogPost({ post }: { post: Post }) {
         openGraph={{
           title: post.title,
           images: [{ url: urlForImage(post.mainImage! ?? "") ?? "" }],
+          type: "article",
+          article: {
+            publishedTime: post.publishedAt,
+            authors: [
+              ...(post.author?.split(", ") ?? []),
+              ...(post.editor?.split(", ") ?? []),
+            ],
+          },
         }}
         twitter={{
           cardType: "summary_large_image",
@@ -60,23 +69,44 @@ export default function BlogPost({ post }: { post: Post }) {
           </div>
         )}
 
-        <div className="flex mb-4 flex-wrap items-start justify-between">
-          <h1 className="text-4xl font-bold">{post.title}</h1>
+        <header className="flex flex-col gap-2 mb-4">
+          <h1 className="text-2xl lg:text-3xl font-bold">{post.title}</h1>
 
-          <div className="flex items-center gap-2 text-black/50">
-            <span>
-              {new Date(post.publishedAt).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-              })}
-            </span>
+          <div className="flex items-center text-black/50 gap-2">
+            {post.author && (
+              <div className="flex items-center gap-2">
+                <span className=" text-sm">by</span>
+                <span className="border-b border-gray-300">{post.author}</span>
+                {!post.editor && <span className=" text-sm">on</span>}
+              </div>
+            )}
 
-            <TbCalendar />
+            {post.editor && (
+              <div className="flex items-center gap-2">
+                <span className=" text-sm">edited by</span>
+                <span className="border-b border-gray-300">{post.editor}</span>
+                <span className=" text-sm">on</span>
+              </div>
+            )}
+
+            <div className="flex items-center border-b border-gray-300 gap-2">
+              <span>
+                {new Date(post.publishedAt).toLocaleDateString(
+                  post.language ?? "en-US",
+                  {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                  }
+                )}
+              </span>
+
+              <TbCalendar />
+            </div>
           </div>
-        </div>
+        </header>
 
         <div className="prose max-w-full prose-blue">
           <PortableText

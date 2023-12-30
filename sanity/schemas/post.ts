@@ -66,6 +66,17 @@ export default defineType({
       title: "Body",
       type: "blockContent",
     }),
+    defineField({
+      name: "author",
+      title: "Author",
+      type: "string",
+      initialValue: "SWY Türkiye Team",
+    }),
+    defineField({
+      name: "editor",
+      title: "Editor",
+      type: "string",
+    }),
   ],
 
   preview: {
