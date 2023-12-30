@@ -4,12 +4,13 @@ import type { Post } from "@/pages/[slug]";
 import { CardBlog } from "@/components/CardBlog";
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import { TbCheck, TbWorld } from "react-icons/tb";
+import { TbCheck } from "react-icons/tb";
 import { useRouter } from "next/router";
 
 export const getServerSideProps = async () => {
   const query =
     '*[_type == "post"]{title, mainImage, slug, publishedAt, language}|order(publishedAt desc)';
+
   const posts = await client.fetch(query);
 
   return { props: { posts } };
@@ -46,8 +47,8 @@ export default function Blog({ posts }: { posts: Post[] }) {
 
                 if (language === selectedLanguage) router.replace("/blog");
                 else
-                  router.replace({
-                    query: { lang: language },
+                  router.replace(`/blog?lang=${language}`, undefined, {
+                    shallow: true,
                   });
               }}
             >
