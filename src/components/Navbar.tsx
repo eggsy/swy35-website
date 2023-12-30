@@ -42,7 +42,7 @@ export const Navbar = () => {
           priority
         />
 
-        <div className="flex flex-col items-center gap-1 md:items-start text-center">
+        <div className="flex flex-col items-center gap-1 lg:gap-0 md:items-start text-center">
           <span className="md:text-lg text-xl font-bold text-brand">
             SWY35 Türkiye
           </span>
