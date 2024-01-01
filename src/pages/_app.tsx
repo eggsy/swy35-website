@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { Router, useRouter } from "next/router";
 import NProgress from "nprogress";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 // CSS
 import "nprogress/nprogress.css";
@@ -47,6 +48,7 @@ export default function App({ Component, pageProps }: AppProps) {
       />
 
       <Analytics />
+      <SpeedInsights />
 
       <div>
         <Navbar />
