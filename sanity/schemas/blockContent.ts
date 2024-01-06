@@ -1,4 +1,5 @@
 import { defineType, defineArrayMember } from "sanity";
+import { TbAlertCircle, TbPhoto } from "react-icons/tb";
 
 /**
  * This is the schema type for block content used in the post document type
@@ -31,7 +32,10 @@ export default defineType({
         { title: "H4", value: "h4" },
         { title: "Quote", value: "blockquote" },
       ],
-      lists: [{ title: "Bullet", value: "bullet" }],
+      lists: [
+        { title: "Bullet", value: "bullet" },
+        { title: "Number", value: "number" },
+      ],
 
       // Marks let you mark up inline text in the Portable Text Editor
       marks: {
@@ -40,6 +44,8 @@ export default defineType({
         decorators: [
           { title: "Strong", value: "strong" },
           { title: "Emphasis", value: "em" },
+          { title: "Underline", value: "underline" },
+          { title: "Strike", value: "strike-through" },
         ],
         // Annotations can be any object structure – e.g. a link or a footnote.
         annotations: [
@@ -53,6 +59,11 @@ export default defineType({
                 name: "href",
                 type: "url",
               },
+              {
+                title: "Open in New Tab",
+                name: "blank",
+                type: "boolean",
+              },
             ],
           },
         ],
@@ -64,6 +75,7 @@ export default defineType({
     defineArrayMember({
       type: "image",
       options: { hotspot: true },
+      icon: TbPhoto,
       fields: [
         {
           name: "caption",
@@ -74,6 +86,38 @@ export default defineType({
           name: "alt",
           type: "string",
           title: "Alternative Text",
+        },
+      ],
+    }),
+    defineArrayMember({
+      type: "object",
+      name: "alert",
+      title: "Alert",
+      icon: TbAlertCircle,
+      fields: [
+        {
+          name: "title",
+          type: "string",
+          title: "Title",
+        },
+        {
+          name: "variant",
+          type: "string",
+          title: "Variant",
+          initialValue: "default",
+          options: {
+            list: [
+              { title: "Default", value: "default" },
+              { title: "Info", value: "info" },
+              { title: "Warning", value: "warning" },
+              { title: "Danger", value: "danger" },
+            ],
+          },
+        },
+        {
+          name: "body",
+          type: "blockContent",
+          title: "Body",
         },
       ],
     }),

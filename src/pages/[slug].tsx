@@ -7,6 +7,7 @@ import { TbCalendar } from "react-icons/tb";
 import { urlForImage } from "../../sanity/lib/image";
 import type { Image as SanityImage } from "sanity";
 import { NextSeo } from "next-seo";
+import Link from "next/link";
 
 export interface Post extends SanityDocument {
   title: string;
@@ -73,6 +74,20 @@ export default function BlogPost({ post }: { post: Post }) {
           <h1 className="text-2xl lg:text-3xl font-bold">{post.title}</h1>
 
           <div className="flex flex-wrap items-center text-black/50 gap-2">
+            {post.language && (
+              <Image
+                src={`https://flagicons.lipis.dev/flags/1x1/${post.language}.svg`}
+                alt={`Country ${post.language}`}
+                width={16}
+                height={16}
+                className="rounded-full h-4 w-4"
+                style={{
+                  objectFit: "cover",
+                }}
+                title="The language of this post"
+              />
+            )}
+
             {post.author && (
               <div className="flex items-center gap-2">
                 <span className=" text-sm">by</span>
@@ -112,7 +127,57 @@ export default function BlogPost({ post }: { post: Post }) {
           <PortableText
             value={post.body}
             components={{
+              marks: {
+                link: ({ value, children }) => {
+                  if (value.href.startsWith("/")) {
+                    return <Link href={value.href}>{children}</Link>;
+                  }
+
+                  return (
+                    <a
+                      href={value.href}
+                      target={value.blank ? "_blank" : "_self"}
+                      rel="noopener noreferrer"
+                    >
+                      {children}
+                    </a>
+                  );
+                },
+              },
+
               types: {
+                alert: ({ value }) => {
+                  if (!value.title && !value.body) return null;
+
+                  const variants = {
+                    default: "border-gray-200",
+                    info: "border-blue-200 bg-blue-50/50 text-blue-700",
+                    warning:
+                      "border-yellow-200 bg-yellow-50/50 text-yellow-700",
+                    danger: "border-red-200 bg-red-50/50 text-red-700",
+                  };
+
+                  return (
+                    <div
+                      className={`${
+                        variants[
+                          (value.variant as keyof typeof variants) ?? "default"
+                        ]
+                      } rounded-lg border px-6  py-4`}
+                    >
+                      {value.title && (
+                        <h3 className="text-lg font-medium not-prose">
+                          {value.title}
+                        </h3>
+                      )}
+
+                      <div className="prose max-w-full prose-blue">
+                        <PortableText value={value.body} />
+                      </div>
+                    </div>
+                  );
+                },
+
                 image: ({ value }) => {
                   return (
                     <figure>
@@ -120,6 +185,7 @@ export default function BlogPost({ post }: { post: Post }) {
                         src={urlForImage(value)!}
                         alt={value.alt}
                         loading="lazy"
+                        className="w-full object-cover"
                       />
 
                       {value.caption && (
