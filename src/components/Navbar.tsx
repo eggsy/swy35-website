@@ -66,13 +66,13 @@ export const Navbar = () => {
       <ul
         className={`
           ${isOpen ? "flex" : "hidden lg:flex"}
-           flex-col lg:flex-row justify-evenly items-center bg-black/5 md:bg-transparent md:gap-8 rounded-lg overflow-auto w-full md:w-max`}
+           flex-col lg:flex-row justify-evenly items-center bg-black/5 md:bg-transparent md:gap-8 rounded-lg w-full md:w-max`}
       >
         {pages.map((page) => (
-          <li key={page.path}>
+          <li key={page.path} className="w-full">
             <Link
               className={`
-              block flex-shrink-0 py-4
+              block flex-shrink-0 flex-grow py-4 text-center w-full
               ${
                 router.pathname === page.path
                   ? "text-brand"
