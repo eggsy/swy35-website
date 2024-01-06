@@ -22,11 +22,13 @@ export const CardBlog = ({
       <Image
         src={image || "/og-image.png"}
         alt={`Picture of ${title}`}
-        height={280}
+        height={200}
         width={500}
         className="rounded-lg"
         style={{
           objectFit: "cover",
+          height: "200px",
+          width: "500px",
         }}
       />
     </div>
