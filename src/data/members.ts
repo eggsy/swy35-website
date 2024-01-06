@@ -73,5 +73,8 @@ export const members = [
   {
     name: "Muhammed Ali Çiçek",
     image: "/muhammed.png",
+    social: {
+      instagram: "muhammedalicicek",
+    },
   },
 ];
