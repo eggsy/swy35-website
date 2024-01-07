@@ -6,7 +6,7 @@ import Image from "next/image";
 import { TbCalendar } from "react-icons/tb";
 import { urlForImage } from "../../sanity/lib/image";
 import type { Image as SanityImage } from "sanity";
-import { NextSeo } from "next-seo";
+import { ArticleJsonLd, NextSeo } from "next-seo";
 import Link from "next/link";
 
 export interface Post extends SanityDocument {
@@ -15,6 +15,7 @@ export interface Post extends SanityDocument {
   mainImage?: SanityImage;
   language: string;
   author?: string;
+  editor?: string;
 }
 
 export const getServerSideProps = async ({
@@ -27,29 +28,59 @@ export const getServerSideProps = async ({
 
   if (!post) return { notFound: true };
 
-  return { props: { post } };
+  return {
+    props: {
+      post,
+      slug: params?.slug,
+    },
+  };
 };
 
-export default function BlogPost({ post }: { post: Post }) {
+export default function BlogPost({ post, slug }: { post: Post; slug: string }) {
   if (!post) return null;
+
+  const meta = {
+    title: post.title,
+    slug,
+    publishedAt: post.publishedAt,
+    image: urlForImage(post.mainImage! ?? "") ?? "",
+    description: `Read more about ${
+      post.author ? `${post.author}'s` : "SWY35 Türkiye's"
+    } "${
+      post.title
+    }" blog post and get ready to find yourself in an immersive world of cultural exchange!`,
+  };
 
   return (
     <>
+      <ArticleJsonLd
+        useAppDir={false}
+        url={`https://swy35.com.tr/${meta.slug}`}
+        title={meta.title}
+        images={[meta.image]}
+        datePublished={meta.publishedAt}
+        authorName={[
+          ...(post.author?.split(", ").map((author) => ({ name: author })) ??
+            []),
+          ...(post.editor?.split(", ").map((editor) => ({ name: editor })) ??
+            []),
+        ]}
+        description={meta.description}
+        isAccessibleForFree={true}
+        type="BlogPosting"
+      />
+
       <NextSeo
-        title={post.title}
+        title={meta.title}
         titleTemplate="%s - SWY35 Türkiye Blog"
-        description={`Read more about ${
-          post.author ? `${post.author}'s` : "SWY35 Türkiye's"
-        } "${
-          post.title
-        }" blog post and get ready to find yourself in an immersive world of cultural exchange!`}
+        description={meta.description}
         openGraph={{
-          title: post.title,
+          title: meta.title,
           siteName: "SWY35 Türkiye",
-          images: [{ url: urlForImage(post.mainImage! ?? "") ?? "" }],
+          images: [{ url: meta.image }],
           type: "article",
           article: {
-            publishedTime: post.publishedAt,
+            publishedTime: meta.publishedAt,
             authors: [
               ...(post.author?.split(", ") ?? []),
               ...(post.editor?.split(", ") ?? []),
