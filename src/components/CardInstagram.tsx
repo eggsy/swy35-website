@@ -29,7 +29,7 @@ export const CardInstagram = (post: InstagramPost) => (
 
     {post.caption && (
       <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black via-black/70 to-transparent">
-        <p className="lg:text-sm drop-shadow-md line-clamp-1 group-hover:line-clamp-2 text-white font-medium ">
+        <p className="lg:text-sm drop-shadow-md line-clamp-2 lg:line-clamp-1 group-hover:line-clamp-2 text-white font-medium ">
           {post.caption}
         </p>
       </div>

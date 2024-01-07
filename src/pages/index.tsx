@@ -287,7 +287,7 @@ const Section = ({
 }> &
   React.HTMLAttributes<HTMLDivElement>) => (
   <section className="container-app my-24" {...rest}>
-    <div className="flex justify-between items-center gap-4 mb-8">
+    <div className="flex justify-between items-center flex-wrap gap-4 mb-8">
       <h2 className="text-3xl font-bold">{title}</h2>
       {append}
     </div>
