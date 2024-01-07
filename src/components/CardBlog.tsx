@@ -56,3 +56,5 @@ export const CardBlog = ({
     </div>
   </Link>
 );
+
+export default CardBlog;

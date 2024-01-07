@@ -19,6 +19,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "flagicons.lipis.dev",
       },
+      {
+        protocol: "https",
+        hostname: "*.cdninstagram.com",
+      },
     ],
   },
 };

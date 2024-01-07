@@ -2,6 +2,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { client } from "../../sanity/lib/client";
 import Image from "next/image";
 import { A11y, Navigation, Pagination, Parallax } from "swiper/modules";
+import type { Post } from "@/pages/[slug]";
+import { urlForImage } from "../../sanity/lib/image";
+import Link from "next/link";
+import useSWR from "swr";
+import CardBlog from "@/components/CardBlog";
+import CardInstagram from "@/components/CardInstagram";
+import type { InstagramPost } from "@/pages/api/get-instagram-posts";
 import {
   TbFriends,
   TbBrain,
@@ -12,11 +19,9 @@ import {
   TbBrandInstagram,
   TbBrandX,
   TbLink,
+  TbX,
+  TbReload,
 } from "react-icons/tb";
-import type { Post } from "@/pages/[slug]";
-import { urlForImage } from "../../sanity/lib/image";
-import { CardBlog } from "@/components/CardBlog";
-import Link from "next/link";
 
 // Data
 import { swiper } from "@/data/swiper";
@@ -67,7 +72,22 @@ export const getServerSideProps = async () => {
   return { props: { posts } };
 };
 
+const fetcher = (url: string) =>
+  fetch(url).then((res) => {
+    if (res.ok) return res.json();
+    else return Promise.reject(res);
+  });
+
 export default function Home({ posts }: { posts: Post[] }) {
+  const { data, error, isLoading } = useSWR<InstagramPost[]>(
+    "/api/get-instagram-posts",
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      shouldRetryOnError: false,
+    }
+  );
+
   return (
     <main>
       <Swiper
@@ -206,6 +226,52 @@ export default function Home({ posts }: { posts: Post[] }) {
           </div>
         </Section>
       )}
+
+      <Section
+        title="Follow us on Instagram"
+        append={
+          <a
+            href="https://instagram.com/swy35_turkiye"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-indigo-100 hover:bg-indigo-200 transition-colors flex font-medium items-center text-indigo-600 gap-1 text-sm rounded-full py-3 px-6"
+          >
+            <TbBrandInstagram size={20} />
+            <span>swy35_turkiye</span>
+          </a>
+        }
+      >
+        <div className="grid lg:grid-cols-4 gap-x-4 gap-y-6">
+          {isLoading && (
+            <div className="text-orange-600 items-center font-medium flex gap-4 col-span-4">
+              <div className="bg-orange-100 rounded-full p-2 animate-spin">
+                <TbReload size={26} />
+              </div>
+
+              <span>Loading posts...</span>
+            </div>
+          )}
+
+          {error && (
+            <div className="text-red-600 items-center font-medium flex gap-4 col-span-4">
+              <div className="bg-red-100 rounded-full p-2">
+                <TbX size={26} />
+              </div>
+
+              <div className="flex flex-col">
+                <span>Failed to load Instagram posts</span>
+
+                {error?.message && (
+                  <span className="text-sm opacity-50">{error?.message}</span>
+                )}
+              </div>
+            </div>
+          )}
+
+          {Array.isArray(data) &&
+            data?.map((post) => <CardInstagram key={post.id} {...post} />)}
+        </div>
+      </Section>
     </main>
   );
 }
