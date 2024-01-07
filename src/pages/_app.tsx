@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-import { NextSeo } from "next-seo";
+import { DefaultSeo } from "next-seo";
 import { Inter } from "next/font/google";
 import { Router, useRouter } from "next/router";
 import NProgress from "nprogress";
@@ -31,8 +31,8 @@ export default function App({ Component, pageProps }: AppProps) {
   if (router.pathname.includes("/studio")) return <Component {...pageProps} />;
 
   return (
-    <div className={inter.className}>
-      <NextSeo
+    <>
+      <DefaultSeo
         title="SWY35 Türkiye"
         titleTemplate="%s"
         themeColor="#DB0D17"
@@ -48,14 +48,16 @@ export default function App({ Component, pageProps }: AppProps) {
         }}
       />
 
-      <Analytics />
-      <SpeedInsights />
+      <div className={inter.className}>
+        <Analytics />
+        <SpeedInsights />
 
-      <div>
-        <Navbar />
-        <Component {...pageProps} />
-        <Footer />
+        <div>
+          <Navbar />
+          <Component {...pageProps} />
+          <Footer />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
