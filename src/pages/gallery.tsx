@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 export default function Gallery() {
   useEffect(() => {
-    mediumZoom("[data-zoomable]", {
+    mediumZoom("[data-zoomable]:not(.medium-zoom-image)", {
       background: "rgba(0, 0, 0, 0.5)",
     });
   }, []);

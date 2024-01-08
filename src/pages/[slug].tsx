@@ -39,6 +39,12 @@ export const getServerSideProps = async ({
 };
 
 export default function BlogPost({ post, slug }: { post: Post; slug: string }) {
+  useEffect(() => {
+    mediumZoom("[data-zoomable]:not(.medium-zoom-image)", {
+      background: "rgba(0, 0, 0, 0.5)",
+    });
+  }, []);
+
   if (!post) return null;
 
   const meta = {
@@ -52,12 +58,6 @@ export default function BlogPost({ post, slug }: { post: Post; slug: string }) {
       post.title
     }" blog post and get ready to find yourself in an immersive world of cultural exchange!`,
   };
-
-  useEffect(() => {
-    mediumZoom("[data-zoomable]", {
-      background: "rgba(0, 0, 0, 0.5)",
-    });
-  }, []);
 
   return (
     <>
