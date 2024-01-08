@@ -21,6 +21,7 @@ import {
   TbLink,
   TbX,
   TbReload,
+  TbBrandLinkedin,
 } from "react-icons/tb";
 
 // Data
@@ -309,25 +310,12 @@ const Card = ({
   </div>
 );
 
-const CardPeople = ({
-  image,
-  name,
-  role,
-  social,
-}: {
-  image: string;
-  name: string;
-  role?: string;
-  social?: {
-    instagram?: string;
-    twitter?: string;
-  };
-}) => (
+const CardPeople = (person: (typeof members)[number]) => (
   <div className="flex flex-col">
     <div className="bg-gray-100/30 mb-4 rounded-lg h-[150px] w-[150px] overflow-hidden">
       <Image
-        src={`/people${image}`}
-        alt={`Picture of ${name}`}
+        src={`/people${person.image}`}
+        alt={`Picture of ${person.name}`}
         style={{
           objectFit: "cover",
         }}
@@ -337,15 +325,37 @@ const CardPeople = ({
     </div>
 
     <div>
-      <h3 className="font-medium">{name}</h3>
-      {role && <span className="text-sm text-gray-500">{role}</span>}
+      <h3 className="font-medium">{person.name}</h3>
+      {person.role && (
+        <span className="text-sm text-gray-500">{person.role}</span>
+      )}
     </div>
 
-    {social && (
+    {person.social && (
       <div className="flex gap-2 mt-1">
-        {social.instagram && (
+        {person.social.website && (
           <a
-            href={`https://instagram.com/${social.instagram}`}
+            href={person.social.website}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <TbLink size={18} />
+          </a>
+        )}
+
+        {person.social.linkedin && (
+          <a
+            href={`https://linkedin.com/in/${person.social.linkedin}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <TbBrandLinkedin size={18} />
+          </a>
+        )}
+
+        {person.social.instagram && (
+          <a
+            href={`https://instagram.com/${person.social.instagram}`}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -353,9 +363,9 @@ const CardPeople = ({
           </a>
         )}
 
-        {social.twitter && (
+        {person.social.twitter && (
           <a
-            href={`https://twitter.com/${social.twitter}`}
+            href={`https://twitter.com/${person.social.twitter}`}
             target="_blank"
             rel="noopener noreferrer"
           >

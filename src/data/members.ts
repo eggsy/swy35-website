@@ -16,6 +16,8 @@ export const members = [
     name: "Abdulbaki Dursun",
     image: "/baki.jpeg",
     social: {
+      website: "https://eggsy.xyz",
+      linkedin: "abdulbaki-dursun",
       instagram: "eggsy_dev",
       twitter: "eggsydev",
     },
@@ -24,6 +26,8 @@ export const members = [
     name: "Ahmet Said Göksu",
     image: "/ahmet.jpeg",
     social: {
+      website: "https://ahmet.goksu.in",
+      linkedin: "ahmetgoksu",
       instagram: "0xgoksu",
       twitter: "ahmstg",
     },
@@ -32,6 +36,7 @@ export const members = [
     name: "Ayşe Süreyya Özavar",
     image: "/ayse.png",
     social: {
+      linkedin: "ayşe-süreyya-özavar-756862163",
       instagram: "7kandillisureyya",
     },
   },
@@ -53,6 +58,7 @@ export const members = [
     name: "Ferdi Dumandağ",
     image: "/ferdi.jpeg",
     social: {
+      linkedin: "ferdi-dumandag",
       instagram: "dumandag_ferdi",
     },
   },
@@ -60,6 +66,7 @@ export const members = [
     name: "Hale Akdağ",
     image: "/hale.png",
     social: {
+      linkedin: "hale-akdağ-283632250",
       instagram: "hale_akdagg",
     },
   },
@@ -67,6 +74,7 @@ export const members = [
     name: "Hasan Muhsin Sargın",
     image: "/hasan.jpeg",
     social: {
+      linkedin: "hasan-muhsin-sargın-751bb529a",
       instagram: "hasanmsargin",
     },
   },
@@ -74,6 +82,7 @@ export const members = [
     name: "Muhammed Ali Çiçek",
     image: "/muhammed.png",
     social: {
+      linkedin: "muhammedalicicek",
       instagram: "muhammedalicicek",
     },
   },
