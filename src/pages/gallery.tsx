@@ -1,7 +1,15 @@
 import Image from "next/image";
+import mediumZoom from "medium-zoom";
 import { gallery } from "@/data/gallery";
+import { useEffect } from "react";
 
 export default function Gallery() {
+  useEffect(() => {
+    mediumZoom("[data-zoomable]", {
+      background: "rgba(0, 0, 0, 0.5)",
+    });
+  }, []);
+
   return (
     <main className="container-app">
       <h1 className="text-4xl font-bold mb-8">Gallery</h1>
@@ -19,6 +27,7 @@ export default function Gallery() {
             style={{
               objectFit: "cover",
             }}
+            data-zoomable
           />
         ))}
       </div>

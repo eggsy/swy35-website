@@ -8,6 +8,8 @@ import { urlForImage } from "../../sanity/lib/image";
 import type { Image as SanityImage } from "sanity";
 import { ArticleJsonLd, NextSeo } from "next-seo";
 import Link from "next/link";
+import { useEffect } from "react";
+import mediumZoom from "medium-zoom";
 
 export interface Post extends SanityDocument {
   title: string;
@@ -50,6 +52,12 @@ export default function BlogPost({ post, slug }: { post: Post; slug: string }) {
       post.title
     }" blog post and get ready to find yourself in an immersive world of cultural exchange!`,
   };
+
+  useEffect(() => {
+    mediumZoom("[data-zoomable]", {
+      background: "rgba(0, 0, 0, 0.5)",
+    });
+  }, []);
 
   return (
     <>
@@ -223,6 +231,7 @@ export default function BlogPost({ post, slug }: { post: Post; slug: string }) {
                         alt={value.alt}
                         loading="lazy"
                         className="w-full object-cover"
+                        data-zoomable
                       />
 
                       {value.caption && (
