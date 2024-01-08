@@ -8,7 +8,7 @@ export const CardInstagram = (post: InstagramPost) => (
     rel="noopener noreferrer"
     target="_blank"
     title="Click to open in new tab"
-    className="bg-gray-100/30 shadow aspect-square group relative rounded-lg overflow-hidden"
+    className="bg-gray-100 shadow aspect-square group relative rounded-lg overflow-hidden"
   >
     <Image
       src={post.media_url}
