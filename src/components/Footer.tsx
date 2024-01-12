@@ -5,6 +5,31 @@ export const Footer = () => {
   return (
     <footer className="mt-32 shadow-inner pb-14 pt-16 gap-12">
       <div className="container-app">
+        <div className="flex items-center justify-center mb-14 flex-col lg:flex-row">
+          <Image
+            src="/gsb.svg"
+            alt="GSB logo"
+            width={150}
+            height={150}
+            style={{
+              width: 120,
+              height: 120,
+              objectFit: "contain",
+            }}
+          />
+
+          <Image
+            src="/japan-turkiye-love.png"
+            alt="Japan Türkiye 100th Anniversary of Diplomatic Relations"
+            width={300}
+            height={200}
+            style={{
+              height: 150,
+              objectFit: "contain",
+            }}
+          />
+        </div>
+
         <div className="flex justify-between gap-8 flex-wrap">
           <div className="flex items-center gap-4">
             <Image
