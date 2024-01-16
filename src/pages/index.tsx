@@ -376,23 +376,3 @@ const CardPeople = (person: (typeof members)[number]) => (
     )}
   </div>
 );
-
-const CardSponsor = ({ name, logo }: { name: string; logo: string }) => (
-  <div className="flex items-center flex-col">
-    <div className="bg-gray-100/30 mb-4 h-[150px] w-[150px] overflow-hidden">
-      <Image
-        src={logo}
-        alt={`Picture of ${name}`}
-        style={{
-          objectFit: "cover",
-        }}
-        height={150}
-        width={150}
-      />
-    </div>
-
-    <div>
-      <h3 className="font-medium text-center">{name}</h3>
-    </div>
-  </div>
-);
