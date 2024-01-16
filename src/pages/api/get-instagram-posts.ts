@@ -3,8 +3,9 @@ import type { NextApiRequest, NextApiResponse } from "next";
 export interface InstagramPost {
   id: string;
   permalink: string;
-  media_type: string;
+  media_type: "IMAGE" | "VIDEO" | "CAROUSEL_ALBUM";
   media_url: string;
+  thumbnail_url?: string;
   caption: string;
 }
 
@@ -19,7 +20,7 @@ export default async function handler(
 ) {
   try {
     const data = await igApi<{ data: InstagramPost[] }>(
-      "/me/media?fields=id,media_type,media_url,caption,permalink&limit=8"
+      "/me/media?fields=id,media_type,media_url,caption,thumbnail_url,permalink&limit=8"
     );
 
     res.status(200).json(data.data);
