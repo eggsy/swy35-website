@@ -16,6 +16,7 @@ export const Footer = () => {
               height: 120,
               objectFit: "contain",
             }}
+            draggable={false}
           />
 
           <Image
@@ -24,9 +25,10 @@ export const Footer = () => {
             width={300}
             height={200}
             style={{
-              height: 150,
+              height: 120,
               objectFit: "contain",
             }}
+            draggable={false}
           />
         </div>
 
