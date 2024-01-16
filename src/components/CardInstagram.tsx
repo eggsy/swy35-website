@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { InstagramPost } from "@/pages/api/get-instagram-posts";
 import { IoMdAlbums } from "react-icons/io";
+import { RiMovieFill } from "react-icons/ri";
 
 export const CardInstagram = (post: InstagramPost) => (
   <a
@@ -11,7 +12,7 @@ export const CardInstagram = (post: InstagramPost) => (
     className="bg-gray-100 shadow aspect-square group relative rounded-lg overflow-hidden"
   >
     <Image
-      src={post.media_url}
+      src={post.media_type === "VIDEO" ? post.thumbnail_url! : post.media_url}
       alt={post.caption ?? "@swy35_turkiye's post"}
       className="aspect-square"
       draggable={false}
@@ -21,9 +22,10 @@ export const CardInstagram = (post: InstagramPost) => (
       }}
     />
 
-    {post.media_type === "CAROUSEL_ALBUM" && (
+    {post.media_type !== "IMAGE" && (
       <div className="absolute top-3 right-3 text-white drop-shadow-lg bg-white/10 backdrop-blur-sm rounded-full p-1">
-        <IoMdAlbums size={20} />
+        {post.media_type === "CAROUSEL_ALBUM" && <IoMdAlbums size={20} />}
+        {post.media_type === "VIDEO" && <RiMovieFill size={20} />}
       </div>
     )}
 
