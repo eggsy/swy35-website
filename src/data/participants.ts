@@ -90,5 +90,8 @@ export const participants = [
   {
     country: "Zambia",
     flag: "https://em-content.zobj.net/source/twitter/53/flag-for-zambia_1f1ff-1f1f2.png",
+    socials: {
+      instagram: "swy35_zambia",
+    },
   },
 ];
