@@ -3,13 +3,14 @@ import { type SanityDocument } from "next-sanity";
 import { client } from "../../sanity/lib/client";
 import { PortableText } from "@portabletext/react";
 import Image from "next/image";
-import { TbCalendar } from "react-icons/tb";
+import { TbCalendar, TbInfoCircle } from "react-icons/tb";
 import { urlForImage } from "../../sanity/lib/image";
 import type { Image as SanityImage } from "sanity";
 import { ArticleJsonLd, NextSeo } from "next-seo";
 import Link from "next/link";
 import { useEffect } from "react";
 import mediumZoom from "medium-zoom";
+import clsx from "clsx";
 
 export interface Post extends SanityDocument {
   title: string;
@@ -19,6 +20,13 @@ export interface Post extends SanityDocument {
   author?: string;
   editor?: string;
 }
+
+const alertVariants = {
+  default: "border-gray-200",
+  info: "border-blue-200 bg-blue-50/50 text-blue-700",
+  warning: "border-yellow-200 bg-yellow-50/50 text-yellow-700",
+  danger: "border-red-200 bg-red-50/50 text-red-700",
+};
 
 export const getServerSideProps = async ({
   params,
@@ -194,29 +202,34 @@ export default function BlogPost({ post, slug }: { post: Post; slug: string }) {
                 alert: ({ value }) => {
                   if (!value.title && !value.body) return null;
 
-                  const variants = {
-                    default: "border-gray-200",
-                    info: "border-blue-200 bg-blue-50/50 text-blue-700",
-                    warning:
-                      "border-yellow-200 bg-yellow-50/50 text-yellow-700",
-                    danger: "border-red-200 bg-red-50/50 text-red-700",
-                  };
+                  const variantClasses =
+                    alertVariants[
+                      (value.variant as keyof typeof alertVariants) ?? "default"
+                    ];
 
                   return (
                     <div
-                      className={`${
-                        variants[
-                          (value.variant as keyof typeof variants) ?? "default"
-                        ]
-                      } rounded-lg border px-6  py-4`}
+                      className={clsx(
+                        "rounded-lg border px-6 py-4 mb-4",
+                        variantClasses
+                      )}
                     >
-                      {value.title && (
-                        <h3 className="text-lg font-medium not-prose">
+                      {value.title ? (
+                        <h3 className="text-lg font-medium not-prose mb-2">
                           {value.title}
                         </h3>
+                      ) : (
+                        <div className="mb-2">
+                          <TbInfoCircle size={24} />
+                        </div>
                       )}
 
-                      <div className="prose max-w-full prose-blue">
+                      <div
+                        className={clsx(
+                          `prose max-w-full prose-blue`,
+                          variantClasses
+                        )}
+                      >
                         <PortableText value={value.body} />
                       </div>
                     </div>
