@@ -22,6 +22,7 @@ export const participants = [
     flag: "https://em-content.zobj.net/source/twitter/53/flag-for-india_1f1ee-1f1f3.png",
     socials: {
       website: "https://www.swyaa-india.in",
+      instagram: "swy_india",
     },
   },
   {
