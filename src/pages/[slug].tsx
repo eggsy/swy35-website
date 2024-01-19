@@ -23,9 +23,11 @@ export interface Post extends SanityDocument {
 
 const alertVariants = {
   default: "border-gray-200",
-  info: "border-blue-200 bg-blue-50/50 text-blue-700",
-  warning: "border-yellow-200 bg-yellow-50/50 text-yellow-700",
-  danger: "border-red-200 bg-red-50/50 text-red-700",
+  info: "border-blue-200 bg-blue-50/50 text-blue-700 prose-p:text-blue-700 prose-strong:text-blue-700",
+  warning:
+    "border-yellow-200 bg-yellow-50/50 text-yellow-700 prose-p:text-yellow-700 prose-strong:text-yellow-700",
+  danger:
+    "border-red-200 bg-red-50/50 text-red-700 prose-p:text-red-700 prose-strong:text-red-700",
 };
 
 export const getServerSideProps = async ({
@@ -224,12 +226,7 @@ export default function BlogPost({ post, slug }: { post: Post; slug: string }) {
                         </div>
                       )}
 
-                      <div
-                        className={clsx(
-                          `prose max-w-full prose-blue`,
-                          variantClasses
-                        )}
-                      >
+                      <div className="prose max-w-full prose-blue">
                         <PortableText value={value.body} />
                       </div>
                     </div>
