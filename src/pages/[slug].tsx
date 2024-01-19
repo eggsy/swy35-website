@@ -212,7 +212,7 @@ export default function BlogPost({ post, slug }: { post: Post; slug: string }) {
                   return (
                     <div
                       className={clsx(
-                        "rounded-lg border px-6 py-4 mb-4",
+                        "rounded-lg border px-6 py-4 mb-4 break-words",
                         variantClasses
                       )}
                     >
