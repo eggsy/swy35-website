@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { TbBrandInstagram } from "react-icons/tb";
+import { TbBrandFacebook, TbBrandInstagram } from "react-icons/tb";
 
 export const Footer = () => {
   return (
@@ -49,7 +49,7 @@ export const Footer = () => {
             </div>
           </div>
 
-          <div className="flex justify-center flex-wrap items-center gap-4">
+          <div className="flex justify-center flex-wrap items-center gap-2">
             <a
               href="https://www.instagram.com/swy35_turkiye"
               target="_blank"
@@ -57,6 +57,15 @@ export const Footer = () => {
               className="bg-black/5 rounded-full p-3"
             >
               <TbBrandInstagram size={24} />
+            </a>
+
+            <a
+              href="https://www.facebook.com/swy35tr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-black/5 rounded-full p-3"
+            >
+              <TbBrandFacebook size={24} />
             </a>
           </div>
         </div>
