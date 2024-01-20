@@ -126,7 +126,9 @@ export default function BlogPost({ post, slug }: { post: Post; slug: string }) {
         )}
 
         <header className="flex flex-col gap-2 mb-4">
-          <h1 className="text-2xl lg:text-3xl font-bold">{post.title}</h1>
+          <h1 className="text-2xl lg:text-3xl font-bold lg:leading-normal text-balance">
+            {post.title}
+          </h1>
 
           <div className="flex flex-wrap items-center text-black/50 gap-2">
             {post.language && (

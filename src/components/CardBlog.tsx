@@ -36,7 +36,7 @@ export const CardBlog = ({
     <div>
       <h3 className="text-lg font-medium">{title}</h3>
 
-      <div className="flex items-center flex-wrap gap-2">
+      <div className="flex items-center mt-1 flex-wrap gap-2">
         {language && (
           <Image
             src={`https://flagicons.lipis.dev/flags/1x1/${language}.svg`}
