@@ -14,10 +14,6 @@ const pages = [
     path: "/#about",
   },
   {
-    title: "Gallery",
-    path: "/gallery",
-  },
-  {
     title: "Contact",
     path: "/contact",
   },
@@ -40,7 +36,6 @@ export const Navbar = () => {
             alt="SWY35 Türkiye Delegation logo"
             width={60}
             height={60}
-            priority
           />
 
           <div className="flex flex-col gap-1 lg:gap-0">

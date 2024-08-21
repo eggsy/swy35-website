@@ -86,7 +86,7 @@ export default function Home({ posts }: { posts: Post[] }) {
     {
       revalidateOnFocus: false,
       shouldRetryOnError: false,
-    }
+    },
   );
 
   return (
@@ -108,7 +108,6 @@ export default function Home({ posts }: { posts: Post[] }) {
           >
             <Image
               src={image}
-              priority
               alt="Swiper Image"
               fill
               style={{
