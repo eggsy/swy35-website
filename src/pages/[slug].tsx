@@ -21,7 +21,7 @@ export interface Post extends SanityDocument {
   editor?: string;
 }
 
-const alertVariants = {
+export const alertVariants = {
   default: "border-gray-200",
   info: "border-blue-200 bg-blue-50/50 text-blue-700 prose-p:text-blue-700 prose-strong:text-blue-700",
   warning:
@@ -171,7 +171,7 @@ export default function BlogPost({ post, slug }: { post: Post; slug: string }) {
                     day: "numeric",
                     hour: "numeric",
                     minute: "numeric",
-                  }
+                  },
                 )}
               </span>
 
@@ -215,7 +215,7 @@ export default function BlogPost({ post, slug }: { post: Post; slug: string }) {
                     <div
                       className={clsx(
                         "rounded-lg border px-6 py-4 mb-4 break-words",
-                        variantClasses
+                        variantClasses,
                       )}
                     >
                       {value.title ? (

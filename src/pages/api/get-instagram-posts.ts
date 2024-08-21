@@ -11,16 +11,16 @@ export interface InstagramPost {
 
 const igApi = <T>(url: string) =>
   fetch(
-    `https://graph.instagram.com/${url}&access_token=${process.env.INSTAGRAM_TOKEN}`
+    `https://graph.instagram.com/${url}&access_token=${process.env.INSTAGRAM_TOKEN}`,
   ).then((res) => res.json()) as Promise<T>;
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<InstagramPost[] | { error: string }>
+  res: NextApiResponse<InstagramPost[] | { error: string }>,
 ) {
   try {
     const data = await igApi<{ data: InstagramPost[] }>(
-      "/me/media?fields=id,media_type,media_url,caption,thumbnail_url,permalink&limit=8"
+      "/me/media?fields=id,media_type,media_url,caption,thumbnail_url,permalink&limit=8",
     );
 
     res.status(200).json(data.data);
