@@ -2,13 +2,14 @@ import { client } from "../../../sanity/lib/client";
 import { urlForImage } from "../../../sanity/lib/image";
 import { alertVariants, type Post } from "@/pages/[slug]";
 import { useEffect } from "react";
-import { GetServerSidePropsContext } from "next";
 import mediumZoom from "medium-zoom";
 import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import clsx from "clsx";
 import { TbInfoCircle } from "react-icons/tb";
+import type { GetServerSidePropsContext } from "next";
+import type { SanityDocument } from "sanity";
 
 export const getServerSideProps = async ({
   params,
@@ -32,7 +33,7 @@ export default function LegalDocument({
   document,
   slug,
 }: {
-  document: { title: string; body: string };
+  document: { title: string; body: SanityDocument & { title: string } };
   slug: string;
 }) {
   useEffect(() => {
